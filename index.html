@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <base target="_top">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-WP (CLMV)</title>
+    <script>
+        // ฟังก์ชันสำหรับดึงพารามิเตอร์จาก URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        // เมื่อหน้าเว็บโหลดเสร็จ
+        window.onload = function() {
+            var id = getUrlParameter('id');
+            if (id) {
+                fetchWorkerData(id);
+            } else {
+                document.getElementById('result').innerHTML = 'ไม่พบ ID ในพารามิเตอร์';
+            }
+        };
+
+        // ฟังก์ชันสำหรับเรียก API และแสดงข้อมูล
+        function fetchWorkerData(id) {
+            var scriptUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?id=' + id;
+            
+            fetch(scriptUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('result').innerHTML = 'เกิดข้อผิดพลาด: ' + data.error;
+                    } else {
+                        displayWorkerData(data);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('result').innerHTML = 'เกิดข้อผิดพลาดในการเรียกข้อมูล: ' + error;
+                });
+        }
+
+        // ฟังก์ชันสำหรับแสดงข้อมูลบนหน้าเว็บ
+        function displayWorkerData(data) {
+            // แสดงข้อมูลตามที่คุณต้องการ
+            var html = '<h2>ข้อมูลแรงงาน</h2>';
+            html += '<p>ชื่อ: ' + data.englishName + '</p>';
+            html += '<p>อายุ: ' + data.age + '</p>';
+            // เพิ่มข้อมูลอื่นๆ ตามต้องการ
+            
+            document.getElementById('result').innerHTML = html;
+        }
+    </script>
 </head>
 <body>
-    <iframe style="width: 100%; height: 100vh;" scrolling="yes" src="https://script.google.com/macros/s/AKfycbykY1lZH5afX4DA7SGBpkjTG0E8MUZaPXnEsUskUwGeWK5Kose3l-k385Tb_8hhZqxv/exec" allow="camera" frameborder="0"></iframe>
+    <div id="result">กำลังโหลดข้อมูล...</div>
 </body>
 </html>
