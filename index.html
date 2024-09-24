@@ -8,6 +8,8 @@
     <title>e-WP (CLMV)</title>
     <meta name="apple-mobile-web-app-title" content="e-WP (CLMV)">
     <meta name="application-name" content="e-WP (CLMV)">
+
+    <link rel="icon" type="image/x-icon" href="https://e-workpermit.doe.go.th/CLMV-WEB/img/logo_login.png">
     
     <style>
         body, html {
@@ -36,7 +38,7 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
         var iframe = document.getElementById('myIframe');
-        var baseUrl = 'https://script.google.com/macros/s/AKfycbx6hJWGZ9jBhw1ulcfzSIhkqHqc_EyVZ-kdFhmuj8y9WPTyJOI2-8FpHTaLPsINbpkA/exec';
+        var baseUrl = 'https://script.google.com/macros/s/AKfycbw2TQNUWcfqrzJjRHq70zHsPBnbH_G_Q2o6HlbzF65B0tIwNDS7BYd55gVzf3fi_GI/exec';
         var id = getUrlParameter('id');
         var iframeUrl = baseUrl;
         if (id) {
