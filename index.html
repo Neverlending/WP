@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" style="margin: 0; padding: 0; height: 100%; overflow: hidden;">
 <head>
     <base target="_top">
     <meta charset="UTF-8">
@@ -8,35 +8,39 @@
     <title>e-WP (CLMV)</title>
     <meta name="apple-mobile-web-app-title" content="e-WP (CLMV)">
     <meta name="application-name" content="e-WP (CLMV)">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #myIframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <iframe id="myIframe" style="width: 100%; height: 100vh;" scrolling="yes" src="" allow="camera" frameborder="0"></iframe>
-
+    <iframe id="myIframe" scrolling="yes" src="" allow="camera"></iframe>
     <script>
-        // ฟังก์ชันสำหรับดึงค่าพารามิเตอร์จาก URL
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
-
-        // ดึง iframe element
         var iframe = document.getElementById('myIframe');
-
-        // URL ฐานของ Google Web App Script
         var baseUrl = 'https://script.google.com/macros/s/AKfycbyT5LBPhRDfA2OP4x28snwFTjPEyvriC4zuhDQlDXhehl_bwaZ0ajDI_K5fWBi24Mlv/exec';
-
-        // ดึงค่า id จาก URL parameters
         var id = getUrlParameter('id');
-
-        // สร้าง URL สำหรับ iframe
         var iframeUrl = baseUrl;
         if (id) {
             iframeUrl += '?id=' + id;
         }
-
-        // กำหนด URL ให้กับ iframe
         iframe.src = iframeUrl;
     </script>
 </body>
